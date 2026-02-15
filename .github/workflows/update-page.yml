@@ -19,6 +19,10 @@ jobs:
       with:
         python-version: '3.11'
     
+    - name: Install dependencies
+      run: |
+        pip install pandas requests
+
     - name: Run script to generate HTML
       run: |
         python generate_html.py  # Votre script Python
