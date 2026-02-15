@@ -9,7 +9,8 @@ from config import API_URL, APPLICATION_KEY, API_KEY, MAC, DATA_FOLDER, START_DA
 
 def update_data():
     os.makedirs(DATA_FOLDER, exist_ok=True)
-    start_date = datetime.strptime(START_DATE, "%Y-%m-%d", tzinfo=ZoneInfo(TIMEZONE)) 
+    start_date = datetime.strptime(START_DATE, "%Y-%m-%d")
+    start_date = start_date.replace(tzinfo=ZoneInfo(TIMEZONE))
     end_date = datetime.now(ZoneInfo(TIMEZONE)) # today - timedelta(days=1) # yesterday
     end_date_str = end_date.strftime("%Y-%m-%d")
     for date in pd.date_range(start=start_date, end=end_date):
