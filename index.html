@@ -1,9 +1,142 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Ma Page</title>
-</head>
-<body>
-    <h1>last update : 2026-02-15 20:02:19</h1>
-</body>
-</html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Page avec Cases</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                background-color: #f4f4f4;
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 5px;
+                color: #333;
+            }
+
+            /* GRILLE PRINCIPALE - Modifiez ici pour changer la disposition */
+            .grille {
+                display: grid;
+                /* Définir le nombre et la taille des colonnes */
+                grid-template-columns: 1fr 1fr; /* 2 colonnes égales */
+                /* Définir le nombre et la taille des lignes */
+                grid-template-rows: 150px 350px 350px; /* 3 lignes de 300px */
+                /* Espacement entre les cases */
+                gap: 20px;
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+
+            /* STYLE DES CASES */
+            .case {
+                background-color: white;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .case h2 {
+                margin-bottom: 15px;
+                color: #555;
+                border-bottom: 2px solid #4CAF50;
+                padding-bottom: 10px;
+            }
+
+            /* Case avec le live - occupe 2 colonnes */
+            .case-live {
+                grid-column: span 2; /* Occupe 2 colonnes */
+                overflow-x: auto; /* Permet le scroll horizontal si nécessaire */
+            }
+
+            .case-days {
+                grid-row: span 2;
+                overflow-x: auto; /* allow for horizontal scrolling if needed */
+            }
+
+            /* STYLE DU TABLEAU */
+            .climato-days {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
+            }
+
+            .climato-days th {
+                background-color: #4CAF50;
+                color: white;
+                padding: 12px;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .climato-days td {
+                padding: 2px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .climato-days tr:hover {
+                background-color: #f5f5f5;
+            }
+
+            /* Cases vides */
+            .case-vide {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #999;
+                font-style: italic;
+            }
+
+            /* RESPONSIVE - adapt to small screens */
+            @media (max-width: 768px) {
+                .grille {
+                    grid-template-columns: 1fr; /* 1 seule colonne sur mobile */
+                    grid-template-rows: auto;
+                }
+
+                .case-days {
+                    grid-column: span 1;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Meteo Le Fournas - Ferrals-les-Montagnes</h1>
+
+        <div class="grille">
+            <div class="case case-live">
+                soon live here
+            </div>
+
+            <div class="case case-days">
+                Error loading days data: The '.style' accessor requires jinja2
+            </div>
+
+            <div class="case case-months">
+                
+            </div>
+
+            <div class="case case-records">
+                <pre>   Température min   -1.3    ℃ 2026-02-05 01:45
+   Température max   11.1    ℃ 2026-01-30 15:40
+Jour le plus froid    1.1    ℃       2026-01-24
+Jour le plus chaud    9.5    ℃       2026-02-11
+Rafale de vent max   47.9 km/h 2026-02-15 18:20
+   Pluie max en 1h   13.0   mm 2026-01-17 16:15
+  Pluie max en 24h  156.7   mm 2026-01-18 13:55
+      Pression min  898.6  hPa 2026-02-05 16:25
+      Pression max  931.1  hPa 2026-01-14 21:25</pre>
+            </div>
+
+        </div>
+    </body>
+    </html>
