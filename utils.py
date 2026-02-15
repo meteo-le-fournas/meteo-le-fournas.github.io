@@ -3,13 +3,14 @@ import json
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
-from config import API_URL, APPLICATION_KEY, API_KEY, MAC, DATA_FOLDER, START_DATE, PAGE_TITLE
+from config import API_URL, APPLICATION_KEY, API_KEY, MAC, DATA_FOLDER, START_DATE, PAGE_TITLE, TIMEZONE
 
 def update_data():
     os.makedirs(DATA_FOLDER, exist_ok=True)
     start_date = START_DATE 
-    end_date = datetime.now() # today - timedelta(days=1) # yesterday
+    end_date = datetime.now(ZoneInfo(TIMEZONE)) # today - timedelta(days=1) # yesterday
     end_date_str = end_date.strftime("%Y-%m-%d")
     for date in pd.date_range(start=start_date, end=end_date):
         date_str = date.strftime("%Y-%m-%d")
@@ -319,7 +320,7 @@ def full_data_df():
         df_this_day = pd.concat(list_df_this_day, axis=1)
         list_df_of_days.append(df_this_day)
     df = pd.concat(list_df_of_days, axis=0)
-    df['datetime'] = [datetime.fromtimestamp(int(i)).strftime("%Y-%m-%d %H:%M:%S") for i in df.index]
+    df['datetime'] = [datetime.fromtimestamp(int(i), tz=ZoneInfo(TIMEZONE)).strftime("%Y-%m-%d %H:%M:%S") for i in df.index]
     df['date'] = [d[:10] for d in df['datetime']]
     df['datetime'] = [d[:-3] for d in df['datetime'].astype(str)]
     return df

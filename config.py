@@ -5,5 +5,6 @@ API_KEY = "e477437e-c81c-4297-827c-b3d3d9c8c73d"
 MAC = "30:ED:A0:A6:CC:D0"
 DATA_FOLDER = "data"
 START_DATE = '2026-01-13' # station installed on 2026-01-13
+TIMEZONE = "Europe/Paris"
 
 PAGE_TITLE = 'Meteo Le Fournas - Ferrals-les-Montagnes'
