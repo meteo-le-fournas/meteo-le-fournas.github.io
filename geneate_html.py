@@ -1,10 +1,4 @@
-import pandas as pd
 from datetime import datetime
-
-# Votre code pour générer le HTML
-df = pd.DataFrame({
-    'A': [1, 2, 3]
-})
 
 html_content = f"""<!DOCTYPE html>
 <html>
@@ -13,7 +7,6 @@ html_content = f"""<!DOCTYPE html>
 </head>
 <body>
     <h1>Dernière mise à jour : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</h1>
-    {df.to_html()}
 </body>
 </html>"""
 
