@@ -19,10 +19,6 @@ jobs:
       with:
         python-version: '3.11'
     
-    #- name: Install dependencies
-    #  run: |
-    #    pip install pandas jinja2 requests  # Ajoutez vos dépendances
-    
     - name: Run script to generate HTML
       run: |
         python generate_html.py  # Votre script Python
