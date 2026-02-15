@@ -6,7 +6,7 @@ html_content = f"""<!DOCTYPE html>
     <title>Ma Page</title>
 </head>
 <body>
-    <h1>Dernière mise à jour : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</h1>
+    <h1>last update : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</h1>
 </body>
 </html>"""
 
