@@ -2,9 +2,9 @@ name: Update HTML Page
 
 on:
   schedule:
-    # Toutes les 5 minutes
+    # every hour
     - cron: '0 * * * *'
-  workflow_dispatch:  # Permet de lancer manuellement
+  workflow_dispatch:  # allow manual launch
 
 jobs:
   update-page:
