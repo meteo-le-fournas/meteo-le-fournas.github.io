@@ -6,7 +6,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from config import API_URL, APPLICATION_KEY, API_KEY, MAC, DATA_FOLDER, START_DATE, PAGE_TITLE, TIMEZONE
+from config import API_URL, APPLICATION_KEY, API_KEY, MAC, DATA_FOLDER, START_DATE, PAGE_TITLE, TIMEZONE, LINKS
 
 def update_data():
     os.makedirs(DATA_FOLDER, exist_ok=True)
@@ -60,7 +60,7 @@ def update_data():
         # Move to the next day
         date += timedelta(days=1)
         # wait a bit to avoid hitting the API too hard
-        time.sleep(20)
+        time.sleep(3)
 
     print("Data is now up to date.")
     return end_date.strftime("%Y-%m-%d")
@@ -172,7 +172,12 @@ def wind_to_symbol(wind_directions, wind_strengths):
     return most_frequent_direction
 
 def live_html():
-    content = "soon live here"
+    for key in LINKS:
+        link = LINKS[key]
+        content = f'live on {key} <a href="{link}" target="_blank">{key}</a>'
+        # add link logo:
+        #if key == "windy":
+        #    content = f'live on <a href="{link}" target="_blank"><img src="windy_logo.png" alt="windy" style="height:20px;"></a>'
     content += f"<br>Last update : {datetime.now(ZoneInfo(TIMEZONE)).strftime('%Y-%m-%d %H:%M:%S')}"
     return content
 

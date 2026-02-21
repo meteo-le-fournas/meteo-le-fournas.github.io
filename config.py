@@ -8,3 +8,4 @@ START_DATE = '2026-01-13' # station installed on 2026-01-13
 TIMEZONE = "Europe/Paris"
 
 PAGE_TITLE = 'Meteo Le Fournas - Ferrals-les-Montagnes'
+LINKS = {'windy' : "https://www.windy.com/station/pws-1f0860d44?43.408,3.011,10,p:temp"}
