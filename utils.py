@@ -435,9 +435,12 @@ def frame_html(live_html, days_html, months_html, records_html):
             }}
 
             h1 {{
-                text-align: center;
-                margin-bottom: 5px;
-                color: #333;
+                background-color: #333;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 3px;
+                width: fit-content;
+                margin: 0 auto;
             }}
 
             /* GRILLE PRINCIPALE - Modifiez ici pour changer la disposition */
