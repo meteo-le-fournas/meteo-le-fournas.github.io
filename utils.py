@@ -324,6 +324,8 @@ def records_table():
     df_group_days_mean = df.groupby("date").agg(lambda x: x.mean() if x.dtype in ['float64', 'int64'] else x.iloc[0])
     df_group_days_max = df.groupby("date").agg(lambda x: x.max() if x.dtype in ['float64', 'int64'] else x.iloc[0])
     df_group_days_min = df.groupby("date").agg(lambda x: x.min() if x.dtype in ['float64', 'int64'] else x.iloc[0])
+    df_group_days_gap = df.groupby("date").agg(lambda x: x.max() - x.min() if x.dtype in ['float64', 'int64'] else x.iloc[0])
+    df_group_days_sum = df.groupby("date").agg(lambda x: x.sum() if x.dtype in ['float64', 'int64'] else x.iloc[0])
     # TODO drop incomplete days
 
     tminjour, tminjour_index = df_group_days_mean[measure_focus].min(), df_group_days_mean[measure_focus].idxmin()
@@ -336,6 +338,9 @@ def records_table():
 
     tmminjour, tmminjour_index = df_group_days_max[measure_focus].min(), df_group_days_max[measure_focus].idxmin()
     record_tmminjour = {'name': "Tmax minimale", 'value': f'{tmminjour:.1f}', 'unit': unit_focus, 'date': tmminjour_index}
+
+    tgapjour, tgapjour_index = df_group_days_gap[measure_focus].max(), df_group_days_gap[measure_focus].idxmax()
+    record_tgapjour = {'name': "Écart max dans la journée", 'value': f'{tgapjour:.1f}', 'unit': unit_focus, 'date': tgapjour_index}
 
     measure_focus, unit_focus = "absolute", list(df["absolute_unit"])[0]
     pressure_min, pressure_min_index = df[measure_focus].min(), df[measure_focus].idxmin()
@@ -360,6 +365,10 @@ def records_table():
     rain_24h_max_time = df.loc[rain_24h_max_index, "datetime"]
     record_rain_24h_max = {'name': "Pluie max en 24h", 'value': rain_24h_max, 'unit': unit_focus, 'date' : rain_24h_max_time}
 
+    measure_focus, unit_focus = "solar", list(df["solar_unit"])[0]
+    solar_max, solar_max_index = df_group_days_sum[measure_focus].max(), df_group_days_sum[measure_focus].idxmax()
+    display_value = solar_max  * (5 / 60.0) # convert from W/m² in 5min to Wh/m² in 1h
+    record_solar_max = {'name': "Jour le plus ensoleillé", 'value': display_value, 'unit': "Wh/m²", 'date' : solar_max_index}
     # TODO
     # nombre max de jours de gel par hiver
     # nombre min de jours de gel par hiver
@@ -369,7 +378,6 @@ def records_table():
     # plus longue gelée continue
     # gelée la plus tardive
     # gelée la plus précoce
-    # nuit la plus chaude
     # max vent 1h
     # max vent 24h
     # max pluie 1 semaine glissante
@@ -381,11 +389,13 @@ def records_table():
     records.append(record_warmest_day)
     records.append(record_tnmaxjour)
     records.append(record_tmminjour)
+    records.append(record_tgapjour)
     records.append(record_wind_gust_max)
     records.append(record_rain_1h_max)
     records.append(record_rain_24h_max)
     records.append(record_pressure_min)
     records.append(record_pressure_max)
+    records.append(record_solar_max)
 
     records_df = pd.DataFrame(records)
     return records_df
@@ -416,7 +426,12 @@ def frame_html(live_html, days_html, months_html, records_html):
             body {{
                 font-family: Arial, sans-serif;
                 padding: 20px;
-                background-color: #f4f4f4;
+                margin: 0;
+                min-height: 100vh;
+                background-image: url("background-grey.png");
+                background-size: cover;       /* fill all */
+                background-position: center;   /* center image */
+                background-repeat: no-repeat;
             }}
 
             h1 {{
